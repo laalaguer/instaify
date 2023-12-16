@@ -1,0 +1,65 @@
+[
+    {
+        "page_id": "example_1",
+        "title": "Homes",
+        "subtitle": "Nice Residences for Sale, pt.1",
+        "posts": [
+            {
+                "title": "2023-05-15",
+                "subtitle": "09:43:44",
+                "other": "",
+                "medias": [
+                    {
+                        "location": "img/img_1.webp",
+                        "content_type": "img"
+                    },
+                    {
+                        "location": "img/img_2.webp",
+                        "content_type": "img"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "page_id": "example_2",
+        "title": "Homes",
+        "subtitle": "Nice Residences for Sale, pt.2",
+        "posts": [
+            {
+                "title": "2023-05-13",
+                "subtitle": "15:12:11",
+                "other": "",
+                "medias": [
+                    {
+                        "location": "img/img_3.webp",
+                        "content_type": "img"
+                    },
+                    {
+                        "location": "img/img_4.jpg",
+                        "content_type": "img"
+                    },
+                    {
+                        "location": "img/img_5.webp",
+                        "content_type": "img"
+                    },
+                    {
+                        "location": "img/img_6.webp",
+                        "content_type": "img"
+                    }
+                ]
+            },
+            {
+                "title": "2023-05-10",
+                "subtitle": "14:38:08",
+                "other": "",
+                "medias": [
+                    {
+                        "location": "img/img_7.jpg",
+                        "content_type": "img"
+                    }
+                ]
+            }
+        ]
+    }
+]
