@@ -1,4 +1,7 @@
-# Instaify - Instagram Like Homepage Renderer
+# Instaify - Instagram Like HTML Renderer
+
+<img src="./README-1.jpg" width="300"></img>
+
 
 ### Input JSON
 
@@ -31,9 +34,8 @@
 ```
 
 
-### Output (JSON -> HTML)
+### Render (JSON -> HTML)
 
-1. Each page will be turned into a html.
-2. Will use `page_id.html` to distinct pages saved on the disk.
-3. `index.html` will be created as "table of contents".
-4. Add a random number to file name if conflict occurs.
+1. Each page i turned into a signle html.
+3. `index.html` is created as "table of contents".
+4. A random number is added to file name if conflict occurs.
