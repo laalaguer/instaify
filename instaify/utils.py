@@ -2,6 +2,7 @@ from typing import Iterable, Set, Dict, List, Callable, Tuple, Union
 from pathlib import Path
 import os
 from datetime import datetime
+import importlib.resources
 
 
 # Supported types of images and videos
@@ -32,7 +33,7 @@ def get_full_parent(p: Path) -> str:
 def _exists(path: str) -> bool:
     return Path(path).exists()
 
-def open_and_read(path: str) -> str:
+def open_lib_resource(path: str) -> str:
     content = None
     if _exists(path):
         with open(path, 'r') as f:
@@ -40,6 +41,15 @@ def open_and_read(path: str) -> str:
     else:
         raise Exception(f"file {path} doesn't exist")
     return content
+
+
+def open_lib_resource(package_name: str, file_path: str) -> str:
+    ''' This is the way to load package included static files '''
+    content = None
+    with importlib.resources.open_text(package_name, file_path) as f:
+        content = f.read()
+        return content
+
 
 def _join_paths(paths: List[Path]) -> Path:
     return os.path.join(*paths)

@@ -5,7 +5,7 @@ from .utils import (
     _exists,
     _join_paths,
     get_unconflict_path,
-    open_and_read,
+    open_lib_resource,
     match_suffixes,
     IMG_SUFFIX,
     VID_SUFFIX
@@ -150,15 +150,15 @@ class Renderer():
 
 class InstagramRenderer(Renderer):
 
-    template_folder = 'instagram_template/'
-    headline_template = open_and_read(template_folder + 't_headline.html')
-    section_template = open_and_read(template_folder + 't_section.html')
-    post_info_template = open_and_read(template_folder + 't_post_info.html')
-    img_template = open_and_read(template_folder + 't_post_img.html')
-    vid_template = open_and_read(template_folder + 't_post_vid.html')
-    post_medias_template = open_and_read(template_folder + 't_post_medias.html')
-    post_template = open_and_read(template_folder + 't_post.html')
-    page_template = open_and_read(template_folder + 't_page.html')
+    templates = 'instaify.template'
+    headline_template = open_lib_resource(templates, 't_headline.html')
+    section_template = open_lib_resource(templates, 't_section.html')
+    post_info_template = open_lib_resource(templates, 't_post_info.html')
+    img_template = open_lib_resource(templates, 't_post_img.html')
+    vid_template = open_lib_resource(templates, 't_post_vid.html')
+    post_medias_template = open_lib_resource(templates, 't_post_medias.html')
+    post_template = open_lib_resource(templates, 't_post.html')
+    page_template = open_lib_resource(templates, 't_page.html')
 
     def render_single(self, document: dict):
         headline = render_headline(

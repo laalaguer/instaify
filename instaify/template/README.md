@@ -1,0 +1,1 @@
+This contains parts of HTML template
