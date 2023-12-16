@@ -11,6 +11,8 @@ from .utils import (
     VID_SUFFIX
 )
 
+
+### Functions ###
 def render_img(template: str, location: str, magic_word: str='{{src}}') -> str:
     '''Render an image according to the location of img and the template string
 
@@ -72,8 +74,11 @@ def render_headline(
 def render_page(template: str, content: str, magic_word: str='{{content}}'):
     return template.replace(magic_word, content)
 
+
+### Interface ###
+
 class Renderer():
-    def __init__(self, documents: List, output_dir: str="", output_relative: bool=False, search_dirs: List[str]=None):
+    def __init__(self, documents: List, output_dir: str="", output_relative: bool=False, search_dirs: List[str]=None, create_toc:bool=False):
         '''A General renderer
 
         Args:
@@ -81,15 +86,18 @@ class Renderer():
             output_dir (str, optional): under which dir shall the html generated. Defaults to "".
             output_relative (bool, optional): shall that the resource links in html files, be translated to relative to html files itself.
             search_dirs (List[str], optional): search for medias inside the dirs, default search in current working dir and in output_dir.
+            create_index (bool, optional): create index.html as table of contents or not.
         '''
         self.documents = documents
         self.output_dir = os.path.abspath(Path(output_dir)) # turn to abs path
         self.output_relative = output_relative # shall be relative render of contents of htmls or not?
-        self.toc_filename = get_unconflict_path(self.output_dir, "index", ".html")
         self.search_dirs = ['./', self.output_dir]
         if search_dirs != None:
             for each in search_dirs:
                 self.search_dirs.append(os.path.abspath(each))
+        self.toc_filename = get_unconflict_path(self.output_dir, "index", ".html")
+        self.create_toc = create_toc
+        
 
     def render_single(self, document: dict):
         ''' Inherit and override this function!
@@ -144,11 +152,14 @@ class Renderer():
         </html>
         '''
 
-        with open(self.toc_filename, 'w') as f:
-            f.write(index_content)
+        if self.create_toc:
+            with open(self.toc_filename, 'w') as f:
+                f.write(index_content)
 
 
 class InstagramRenderer(Renderer):
+    ''' Instagram-like renderer
+    '''
 
     templates = 'instaify.template'
     headline_template = open_lib_resource(templates, 't_headline.html')

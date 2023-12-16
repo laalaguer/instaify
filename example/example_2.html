@@ -1,0 +1,219 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /* Global css variables */
+            :root {
+                --main-space: 20px;
+                --main-space-half: 10px;
+
+                --item-space: 5px;
+                --item-space-half: 2px;
+
+                --inner-space: 5px;
+                --inner-space-half: 2px;
+                --inner-space-double: 10px;
+
+                --thumb-max-width: max(16vw, 150px);
+                --thumb-min-width: min(16vw, 150px);
+                --thumb-border-radius: calc(var(--thumb-max-width) / 30);
+                
+                --thumb-detail-width: max(40vw, 350px);
+
+                --main-text-color: white;
+                --secondary-text-color: lightgrey;
+            }
+
+            /* Whole page setup */
+            .page {
+                background-color: black;
+            }
+
+            /* Section */
+            .section {
+                padding: var(--main-space-half);
+                margin: var(--main-space-half);
+            }
+
+            /* Headline */
+            .headline {
+                color: var(--main-text-color);
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .headline_title {
+                font-family: cursive;
+            }
+
+            .headline_subtitle {
+                font-family: monospace;
+            }
+
+            /* Single post and thumbnails */
+            .post {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nonwrap;
+            }
+
+            .post_info {
+                margin-left: var(--item-space-half);
+                margin-right: var(--item-space-half);
+                padding: var(--inner-space-half);
+                width: var(--thumb-max-width);
+                min-width: var(--thumb-min-width);
+
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: flex-start;
+
+                font-family: monospace;
+            }
+
+            .post_title {
+                padding-right: var(--inner-space-double);
+                color: var(--main-text-color);
+            }
+
+            .post_subtitle {
+                padding-right: var(--inner-space-double);
+                color: var(--secondary-text-color);
+            }
+
+            .post_other {
+                padding-right: var(--inner-space-double);
+                color: var(--secondary-text-color);
+                font-style: italic;
+            }
+
+            .post_medias {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap; /* push a media to next row if overflowed*/
+                width: 80%; /* No larger than 80% of parent div */
+            }
+
+            .thumb_box {
+                margin: var(--item-space-half);
+                padding: var(--inner-space-half);
+
+                width: var(--thumb-max-width);
+                min-width: var(--thumb-min-width);
+
+                height: var(--thumb-max-width);
+                min-height: var(--thumb-min-width);
+
+                border-radius: var(--thumb-border-radius);
+                overflow: hidden; /* This prevent the picture contained to hide the corners of div */
+            }
+
+            .thumb {
+                object-fit: cover; /* fill the parent without distort the picture */
+                width: 100%;
+                height: 100%;
+            }
+
+            .thumb_video {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+
+            .navigation {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .nav_button {
+                border: none;
+                border-radius: 5px;
+                outline: none;
+                background: rgb(54,54,54);
+                color: rgb(245,245,245);
+                width: 200px;
+                height: 32px;
+
+                cursor: pointer;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body class="page">
+
+        <div class="section">
+    <div class="headline">
+    <h1 class="headline_title">Homes</h1>
+    <h3 class="headline_subtitle">Nice Residences for Sale, pt.2</h3>
+</div>
+</div><div class="section">
+    <div class="post">
+    <div class="post_info">
+    <h2 class="post_title">2023-05-13</h2>
+    <h4 class="post_subtitle">15:12:11</h4>
+    <h5 class="post_other"></h5>
+</div><div class="post_medias">
+    <div class="thumb_box">
+    <img class="thumb" src="img/img_3.webp"></img>
+</div><div class="thumb_box">
+    <img class="thumb" src="img/img_4.jpg"></img>
+</div><div class="thumb_box">
+    <img class="thumb" src="img/img_5.webp"></img>
+</div><div class="thumb_box">
+    <img class="thumb" src="img/img_6.webp"></img>
+</div>
+</div>
+</div>
+</div><div class="section">
+    <div class="post">
+    <div class="post_info">
+    <h2 class="post_title">2023-05-10</h2>
+    <h4 class="post_subtitle">14:38:08</h4>
+    <h5 class="post_other"></h5>
+</div><div class="post_medias">
+    <div class="thumb_box">
+    <img class="thumb" src="img/img_7.jpg"></img>
+</div>
+</div>
+</div>
+</div>
+
+        <script>
+            const boxes = document.querySelectorAll('.thumb_box');
+
+            boxes.forEach(box => {
+                box.addEventListener('click', function handleClick(event) {
+                    // console.log('box clicked', event);
+
+                    let normal_width = getComputedStyle(document.documentElement).getPropertyValue('--thumb-max-width')
+                    let detail_width = getComputedStyle(document.documentElement).getPropertyValue('--thumb-detail-width')
+
+                    if (box.hasAttribute('enlarged')) {
+                        box.removeAttribute('enlarged')
+                        box.style.width = normal_width;
+                        box.style.height = normal_width;
+                    } else {
+                        boxes.forEach( box2 => {
+                            if (box2.hasAttribute('enlarged')) {
+                                box2.removeAttribute('enlarged')
+                                box2.style.width = normal_width;
+                                box2.style.height = normal_width;
+                            }
+                        })
+                        box.setAttribute('enlarged', '')
+                        box.style.width = detail_width;
+                        box.style.height = detail_width;
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

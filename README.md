@@ -5,17 +5,17 @@
 ```javascript
 [
     {
-        'page_id': '',
-        'title': '',
-        'subtitle': '',
-        'posts': [
+        "page_id": "",
+        "title": "",
+        "subtitle": "",
+        "posts": [
             {
-                'title': '',
-                'subtitle': '',
-                'other': '',
-                'medias': [
+                "title": "",
+                "subtitle": "",
+                "other": "",
+                "medias": [
                     {
-                        'location': '', // local file location.
+                        "location": "", // local file location.
                     }
                 ]
             },
@@ -31,7 +31,7 @@
 ```
 
 
-### Renderer (Turn above JSON into HTML page/pages)
+### Output (JSON -> HTML)
 
 1. Each page will be turned into a html.
 2. Will use `page_id.html` to distinct pages saved on the disk.

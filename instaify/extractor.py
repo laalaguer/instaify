@@ -5,6 +5,8 @@ from .utils import (
     _scan_dir
 )
 
+
+### Interface ###
 class Extractor():
     def __init__(self, path: str):
         self.path = os.path.abspath(Path(path))
@@ -13,6 +15,9 @@ class Extractor():
         pass
 
 
+### Extractor for IG Downloader
+### It only provides a dir of pics / videos
+### We need to extract structured info from pics and video names.
 class IGDownloaderExtractor(Extractor):
     
     def run(self):
@@ -80,14 +85,3 @@ class IGDownloaderExtractor(Extractor):
             pages.append(page)
 
         return pages
-
-
-class IGDownloader():
-    def __init__(self, ig_downloader_folder: str):
-        self.ig_downloader_folder = ig_downloader_folder
-    
-    def run(self):
-        _, dirs = _scan_dir(self.ig_downloader_folder)
-
-        for each_dir in dirs:
-            ige = IGDownloaderExtractor(each_dir)
