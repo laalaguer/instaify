@@ -29,7 +29,18 @@ class IGDownloaderExtractor(Extractor):
             _suffix = f.suffix
             stem_parts = f.stem.split('_')
             user_handle = stem_parts[0]
-            post_timestamp = stem_parts[1]
+            post_timestamp = None
+
+            for item in stem_parts[1:]:
+                try:
+                    post_timestamp = int(item)
+                    if post_timestamp > 2147483647:
+                        raise Exception('breached max value')
+                    if post_timestamp < 631123200:
+                        raise Exception('lower than 1990.01.01')
+                    break
+                except:
+                    continue
 
             dt_object = datetime.fromtimestamp(int(post_timestamp))
             post_date = dt_object.strftime('%Y-%m-%d')
