@@ -20,8 +20,8 @@ def is_timestamp(s: str):
         post_timestamp = int(s)
         if post_timestamp > 2147483647:
             raise Exception('breached max value')
-        if post_timestamp < 631123200:
-            raise Exception('lower than 1990.01.01')
+        # if post_timestamp < 631123200:
+        #     raise Exception('lower than 1990.01.01')
     except:
         return False
     
@@ -32,7 +32,7 @@ def find_timestamp(s: str) -> str:
     for part in parts:
         if is_timestamp(part):
             return part
-    raise Exception('No suitable timestamp found in the string, cannot extract timestamp.')
+    raise Exception(f'No suitable timestamp found in the string {s}, cannot extract timestamp.')
 
 def extract_user_handle(s: str, timestamp: str) -> str:
     timestamp_index = s.find(timestamp)
@@ -40,7 +40,7 @@ def extract_user_handle(s: str, timestamp: str) -> str:
         handle = s[:timestamp_index].rstrip('_')
         return handle
     else:
-        raise Exception('No timestamp found in the string, cannot extract user handle.')
+        raise Exception(f'No timestamp found in the string {s}, cannot extract user handle.')
 
 ### Extractor for <IG Downloader>
 ### for each given folder (a blog) that contains videos and pics,
