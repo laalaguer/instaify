@@ -14,33 +14,57 @@ class Extractor():
     def run(self):
         pass
 
+def is_timestamp(s: str):
+    ''' Check if a number is a suitable timestamp value '''
+    try:
+        post_timestamp = int(s)
+        if post_timestamp > 2147483647:
+            raise Exception('breached max value')
+        if post_timestamp < 631123200:
+            raise Exception('lower than 1990.01.01')
+    except:
+        return False
+    
+    return True
 
-### Extractor for IG Downloader
-### It only provides a dir of pics / videos
-### We need to extract structured info from pics and video names.
+def find_timestamp(s: str) -> str:
+    parts = s.split('_')
+    for part in parts:
+        if is_timestamp(part):
+            return part
+    raise Exception('No suitable timestamp found in the string, cannot extract timestamp.')
+
+def extract_user_handle(s: str, timestamp: str) -> str:
+    timestamp_index = s.find(timestamp)
+    if timestamp_index != -1:
+        handle = s[:timestamp_index].rstrip('_')
+        return handle
+    else:
+        raise Exception('No timestamp found in the string, cannot extract user handle.')
+
+### Extractor for <IG Downloader>
+### for each given folder (a blog) that contains videos and pics,
+### We create structured info from pics and video names.
 class IGDownloaderExtractor(Extractor):
     
     def run(self):
+        ''' Creates structured information from a given blog folder. '''
         files, _ = _scan_dir(Path(self.path))
 
         pics = []
         for f in files:
             _path = str(f)
             _suffix = f.suffix
-            stem_parts = f.stem.split('_')
-            user_handle = stem_parts[0]
-            post_timestamp = None
+            
+            # Post timestamp is ...?
+            post_timestamp = None # int type
 
-            for item in stem_parts[1:]:
-                try:
-                    post_timestamp = int(item)
-                    if post_timestamp > 2147483647:
-                        raise Exception('breached max value')
-                    if post_timestamp < 631123200:
-                        raise Exception('lower than 1990.01.01')
-                    break
-                except:
-                    continue
+            # Extract timestamp from the file name
+            post_timestamp_str = find_timestamp(f.stem)
+            post_timestamp = int(post_timestamp_str)
+
+            # Extract user handle from the file name
+            user_handle = extract_user_handle(f.stem, post_timestamp_str)
 
             dt_object = datetime.fromtimestamp(int(post_timestamp))
             post_date = dt_object.strftime('%Y-%m-%d')

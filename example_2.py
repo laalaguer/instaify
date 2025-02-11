@@ -1,9 +1,10 @@
 ''' 
     Example:
 
-    If you have a IG Downloader Chrome plugin and have downloaded some images,
+    If you have a IG Downloader Chrome plugin,
+    and have downloaded some Instagram blogs in it,
 
-    Simply run this script with the path to the folder to generate HTML pages.
+    Simply run this script with the IG Downloader folder path to generate HTML pages for each blog.
 '''
 
 import sys
